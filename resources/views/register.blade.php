@@ -18,7 +18,7 @@
     </head>
 <body>
 <div class="container">
-<form action="/login" method="post" id="formregister">
+<form action="{{ URL::to('/') }}/login" method="post" id="formregister">
     @csrf
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
@@ -75,7 +75,7 @@
       <button type="submit" class="btn btn-default signupbtn">Sign Up</button>
     </div>
 </form>
-<a href="/login">Login Here</a>
+<a href="{{ URL::to('/') }}/login">Login Here</a>
 </div>
 </body>
 <footer>
@@ -140,7 +140,7 @@
     },
     contactno: {
     required: true,
-    minlength: 10
+    maxlength: 10
     }
     },
     messages: {
@@ -156,7 +156,7 @@
         },
         contactno: {
           required: "Please enter a Contact No",
-          minlength: "Please enter at least 10 characters"
+          maxlength: "Please enter at least 10 characters"
         }
     }
     });

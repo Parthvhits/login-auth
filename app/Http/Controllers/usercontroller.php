@@ -101,4 +101,31 @@ class usercontroller extends Controller
         $this->data['allContent'] = $users;
         return view('updatedetail',$this->data);
     }
+    public function store(Request $request){
+        //return $request->all();
+        //exit();
+        $validated = $request->validate([
+            'uname' => 'required',
+            'email' => 'required|email',
+            'contactno' => 'required|integer',
+            'gender'=> 'required|in:male,female'
+        ],
+        [ 
+            'email.required' => 'Please enter an Email',
+            'email.unique' => 'The email has already been taken',
+            'contactno.required' => 'Please enter a Contact No',
+            'contactno.unique' => 'The Contact No has already been taken',
+            'contactno.min' => 'Please enter at least 10 characters'
+        ]
+        );
+        $input = $request->all();
+        $id = $input['userid'];
+        $users = User::find($id);
+        $users->name = $input['uname'];
+        $users->email = $input['email'];
+        $users->gender = $input['gender'];
+        $users->contactno = $input['contactno'];
+        $users->save();
+        return redirect('list');
+    }
 }

@@ -19,7 +19,7 @@
 <body>
 <div class="container">
 <h1>Update</h1>
-<form action="/login" method="post" id="formregister">
+<form action="{{ URL::to('/') }}/updatedData" method="post" id="formregister">
     @csrf
     <div class="form-group">
     <label for="uname"><b>User Name</b></label>
@@ -46,25 +46,21 @@
     </div>
 
     <div class="form-group">
+    <input type="hidden" name="userid" class="form-control" value="{{$allContent->id}}">
+    </div>
+
+    <div class="form-group">
     <strong>Gender</strong>
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" <?php if($allContent->gender=='male'){ echo "checked=checked";}  ?>>
+      <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="male" <?php if($allContent->gender=='male'){ echo "checked=checked"; }  ?>>
       <label class="form-check-label" for="gender">
       Male
       </label>
-      <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" <?php if($allContent->gender=='female'){ echo "checked=checked";} ?>>
+      <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="female" <?php if($allContent->gender=='female'){ echo "checked=checked";} ?>>
       <label class="form-check-label" for="gender">
       Female
       </label>
     </div>
-    </div>
-
-    <div class="form-group">
-    <label for="psw"><b>Password</b></label>
-    <input type="password" value="{{$allContent->password}}" name="password" class="form-control">
-    @if($errors->has('password'))
-      <div class="error">{{ $errors->first('password') }}</div>
-    @endif
     </div>    
 
     <div class="clearfix">
@@ -75,6 +71,7 @@
 </body>
 <footer>
 <script type="text/javascript">
+$(document).ready(function(){
     $("#formregister").validate({
     rules: {
     uname: "required",
@@ -82,13 +79,9 @@
     required: true,
     email: true
     },
-    password: {
-    required: true,
-    minlength: 8
-    },
     contactno: {
     required: true,
-    minlength: 10
+    maxlength: 10
     }
     },
     messages: {
@@ -98,13 +91,9 @@
         email: {
           required: "Please enter an Email"
         },
-        password: {
-          required: "Please enter a Password",
-          minlength: "Please enter at least 8 characters"
-        },
         contactno: {
           required: "Please enter a Contact No",
-          minlength: "Please enter at least 10 characters"
+          maxlength: "Please enter at least 10 characters"
         }
     }
     });

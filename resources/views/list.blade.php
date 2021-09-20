@@ -35,7 +35,7 @@
             @endforeach
             </tbody>
         </table>
-        <a href="/logout">Logout</a>
+        <a href="{{ URL::to('/') }}/logout">Logout</a>
     </div>
     </body>
 </html>

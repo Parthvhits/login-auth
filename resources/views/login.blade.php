@@ -20,7 +20,7 @@
 
 <div class="container">
   <h2>Login form</h2>
-  <form action="/authuser" id="formlogin" method="post">
+  <form action="{{ URL::to('/') }}/authuser" id="formlogin" method="post">
     @csrf
     <div class="form-group">
       <label for="email">Email:</label>
