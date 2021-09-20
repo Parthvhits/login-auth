@@ -75,6 +75,7 @@
       <button type="submit" class="btn btn-default signupbtn">Sign Up</button>
     </div>
 </form>
+<a href="/login">Login Here</a>
 </div>
 </body>
 <footer>
