@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\User;
+//use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -126,6 +127,13 @@ class usercontroller extends Controller
         $users->gender = $input['gender'];
         $users->contactno = $input['contactno'];
         $users->save();
+        return redirect('list');
+    }
+    public function deleteData($id){
+        $auth = Auth::user()->email;
+        return $auth;
+        exit();
+        //$delete = User::where('id', $id)->update(['deleted_by' => $id, 'deleted_at' => date('Y-m-d H:i:s')]);
         return redirect('list');
     }
 }

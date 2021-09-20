@@ -33,3 +33,4 @@ Route::post('/checkcontact', [usercontroller::class, 'checkcontact']);
 Route::get('/update/{id}', [usercontroller::class, 'updateDetail']);
 Route::resource('updatedData', usercontroller::class);
 Route::get('list', [usercontroller::class, 'list']);
+Route::get('/delete/{id}', [usercontroller::class, 'deleteData']);
