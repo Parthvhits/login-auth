@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Register</title>
+        <title>Update</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -18,14 +18,12 @@
     </head>
 <body>
 <div class="container">
+<h1>Update</h1>
 <form action="/login" method="post" id="formregister">
     @csrf
-    <h1>Sign Up</h1>
-    <p>Please fill in this form to create an account.</p>
-
     <div class="form-group">
     <label for="uname"><b>User Name</b></label>
-    <input type="text" name="uname" id="uname" class="form-control @error('uname') is-invalid @enderror">
+    <input type="text" name="uname" id="uname" class="form-control @error('uname') is-invalid @enderror" value="{{$allContent->name}}">
     @error('uname')
         <div class="error">{{ 'Please enter an User Name' }}</div>
     @enderror
@@ -33,8 +31,7 @@
     
     <div class="form-group">
     <label for="email"><b>Email</b></label>
-    <input type="email" id="email-add" name="email" class="form-control">
-    <span id="email-error" style="color: red; font-weight: bold;"></span>
+    <input type="email" id="email-add" name="email" value="{{$allContent->email}}" class="form-control">
     @if($errors->has('email'))
       <div class="error">{{ $errors->first('email') }}</div>
     @endif
@@ -42,8 +39,7 @@
 
     <div class="form-group">
     <label for="contactno"><b>Contact No</b></label>
-    <input type="text" name="contactno" id="contactno" class="form-control">
-    <span id="contact-error" style="color: red; font-weight: bold;"></span>
+    <input type="text" name="contactno" id="contactno" class="form-control" value="{{$allContent->contactno}}">
     @if($errors->has('contactno'))
       <div class="error">{{ $errors->first('contactno') }}</div>
     @endif
@@ -52,11 +48,11 @@
     <div class="form-group">
     <strong>Gender</strong>
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="male" checked>
+      <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" <?php if($allContent->gender=='male'){ echo "checked=checked";}  ?>>
       <label class="form-check-label" for="gender">
       Male
       </label>
-      <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="female">
+      <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" <?php if($allContent->gender=='female'){ echo "checked=checked";} ?>>
       <label class="form-check-label" for="gender">
       Female
       </label>
@@ -65,68 +61,20 @@
 
     <div class="form-group">
     <label for="psw"><b>Password</b></label>
-    <input type="password" name="password" class="form-control">
+    <input type="password" value="{{$allContent->password}}" name="password" class="form-control">
     @if($errors->has('password'))
       <div class="error">{{ $errors->first('password') }}</div>
     @endif
     </div>    
 
     <div class="clearfix">
-      <button type="submit" class="btn btn-default signupbtn">Sign Up</button>
+      <button type="submit" class="btn btn-default signupbtn">Update</button>
     </div>
 </form>
-<a href="/login">Login Here</a>
 </div>
 </body>
 <footer>
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('#email-add').blur(function(){
-          var email = $('#email-add').val();
-          var _token = $('input[name="_token"]').val();
-          $.ajax({
-              type: "POST",
-              url: '{{url('checkemail')}}',
-              data: {
-                email:email, 
-                _token:_token
-              },
-              dataType: "json",
-              success: function(result) {
-                  if(result == 1){
-                    $('#email-error').html("The email has already been taken");
-                    $('#email-add').focus();
-                  }
-                  else{
-                    $('#email-error').html("");
-                  }
-              }
-              
-          });
-    });
-    $('#contactno').blur(function(){
-          var cno = $('#contactno').val();
-          var _token = $('input[name="_token"]').val();
-          $.ajax({
-              type: "POST",
-              url: '{{url('checkcontact')}}',
-              data: {
-                cno:cno, 
-                _token:_token
-              },
-              dataType: "json",
-              success: function(result) {
-                  if(result == 1){
-                    $('#contact-error').html("The Contact No has already been taken");
-                    $('#contactno').focus();
-                  }
-                  else{
-                    $('#contact-error').html("");
-                  }
-              }
-              
-          });
-    });
     $("#formregister").validate({
     rules: {
     uname: "required",

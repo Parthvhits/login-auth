@@ -93,6 +93,12 @@ class usercontroller extends Controller
     }
     public function list(){
         $users = User::all();
-        return view('list',['users'=>$users]);
+        $this->data['allContent'] = $users;
+        return view('list',$this->data);
+    }
+    public function updateDetail($id){
+        $users = User::where('id',$id)->first();
+        $this->data['allContent'] = $users;
+        return view('updatedetail',$this->data);
     }
 }
