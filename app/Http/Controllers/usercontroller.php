@@ -130,10 +130,8 @@ class usercontroller extends Controller
         return redirect('list');
     }
     public function deleteData($id){
-        $auth = Auth::user()->email;
-        return $auth;
-        exit();
-        //$delete = User::where('id', $id)->update(['deleted_by' => $id, 'deleted_at' => date('Y-m-d H:i:s')]);
+        $auth = Auth::user();
+        $delete = User::where('id', $id)->update(['deleted_by' => $auth->id, 'deleted_at' => date('Y-m-d H:i:s')]);
         return redirect('list');
     }
 }

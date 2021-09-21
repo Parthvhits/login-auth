@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\usercontroller;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,6 @@ Route::get('/update/{id}', [usercontroller::class, 'updateDetail']);
 Route::resource('updatedData', usercontroller::class);
 Route::get('list', [usercontroller::class, 'list']);
 Route::get('/delete/{id}', [usercontroller::class, 'deleteData']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
