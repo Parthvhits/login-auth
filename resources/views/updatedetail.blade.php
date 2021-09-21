@@ -40,13 +40,14 @@
     <div class="form-group">
     <label for="contactno"><b>Contact No</b></label>
     <input type="text" name="contactno" id="contactno" class="form-control" value="{{$allContent->contactno}}">
+    <span id="contact-error" style="color: red; font-weight: bold;"></span>
     @if($errors->has('contactno'))
       <div class="error">{{ $errors->first('contactno') }}</div>
     @endif
     </div>
 
     <div class="form-group">
-    <input type="hidden" name="userid" class="form-control" value="{{$allContent->id}}">
+    <input type="hidden" id="userid" name="userid" class="form-control" value="{{$allContent->id}}">
     </div>
 
     <div class="form-group">
@@ -64,7 +65,7 @@
     </div>    
 
     <div class="clearfix">
-      <button type="submit" class="btn btn-default signupbtn">Update</button>
+      <button type="submit" id="updatebtn" class="btn btn-default signupbtn">Update</button>
     </div>
 </form>
 </div>
@@ -72,6 +73,33 @@
 <footer>
 <script type="text/javascript">
 $(document).ready(function(){
+    $('#contactno').blur(function(){
+          var cno = $('#contactno').val();
+          var id = $('#userid').val();
+          var _token = $('input[name="_token"]').val();
+          $.ajax({
+              type: "POST",
+              url: '{{url('checkcontactedit')}}',
+              data: {
+                cno:cno,
+                id:id, 
+                _token:_token
+              },
+              dataType: "json",
+              success: function(result) {
+                  if(result){
+                    $('#contact-error').html("The Contact No has already been taken");
+                    $('#contactno').focus();
+                    $('#updatebtn').prop('disabled',true);
+                  }
+                  else{
+                    $('#contact-error').html("");
+                    $('#updatebtn').prop('disabled',false);
+                  }
+              }
+              
+          });
+    });
     $("#formregister").validate({
     rules: {
     uname: "required",
@@ -119,7 +147,7 @@ $(document).ready(function(){
         });
     };
     $("#contactno").ForceNumericOnly();
-  });
+});
 </script>
 </footer>
 </html>

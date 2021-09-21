@@ -31,6 +31,8 @@ Route::get('/checkemail', [usercontroller::class, 'checkemail']);
 Route::post('/checkemail', [usercontroller::class, 'checkemail']);
 Route::get('/checkcontact', [usercontroller::class, 'checkcontact']);
 Route::post('/checkcontact', [usercontroller::class, 'checkcontact']);
+Route::get('/checkcontactedit', [usercontroller::class, 'CheckContactEdit']);
+Route::post('/checkcontactedit', [usercontroller::class, 'CheckContactEdit']);
 Route::get('/update/{id}', [usercontroller::class, 'updateDetail']);
 Route::resource('updatedData', usercontroller::class);
 Route::get('list', [usercontroller::class, 'list']);

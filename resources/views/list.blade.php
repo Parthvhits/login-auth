@@ -22,20 +22,33 @@
                 </tr>
             </thead>
             <tbody>
+            @php
+            $cnt=1;
+            @endphp
             @foreach($allContent as $user)
                 <tr>
-                <th>{{ $user->id }}</th>
+                <th>{{ $cnt }}</th>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->gender }}</td>
                 <td>{{ $user->contactno }}</td>
                 <td><a href="/update/{{$user->id}}">Edit</a></td>
-                <td><a href="/delete/{{$user->id}}">Delete</a></td>
+                <td><a href="/delete/{{$user->id}}" id="btndel">Delete</a></td>
                 </tr>
+            @php
+            $cnt++;
+            @endphp
             @endforeach
             </tbody>
         </table>
         <a href="{{ URL::to('/') }}/logout">Logout</a>
     </div>
     </body>
+    <footer>
+        <script type="text/javascript">
+            $('#btndel').click(function(){
+                alert("Do you want to delete this record?");
+            });
+        </script>
+    </footer>
 </html>

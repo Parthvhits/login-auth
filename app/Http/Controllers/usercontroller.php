@@ -16,7 +16,7 @@ class usercontroller extends Controller
             'uname' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
-            'contactno' => 'required|integer|unique:users',
+            'contactno' => 'required|integer|unique:users|min:10',
             'gender'=> 'required|in:male,female'
         ],
         [ 
@@ -112,6 +112,20 @@ class usercontroller extends Controller
             echo 0;
         }
     }
+    public function CheckContactEdit(Request $request)
+    {
+        $cno = $request->cno;
+        $id = $request->id;
+        $data = User::where('id', '!=', $id)->where('contactno', '=', $cno)->first();
+        if($data)
+        {
+            echo 1;
+        }
+        else
+        {
+            echo 0;
+        }
+    }
     public function list(){
         $users = User::all();
         $this->data['allContent'] = $users;
@@ -128,14 +142,13 @@ class usercontroller extends Controller
         $validated = $request->validate([
             'uname' => 'required',
             'email' => 'required|email',
-            'contactno' => 'required|integer',
+            'contactno' => 'required|integer|min:10',
             'gender'=> 'required|in:male,female'
         ],
         [ 
             'email.required' => 'Please enter an Email',
             'email.unique' => 'The email has already been taken',
             'contactno.required' => 'Please enter a Contact No',
-            'contactno.unique' => 'The Contact No has already been taken',
             'contactno.min' => 'Please enter at least 10 characters'
         ]
         );
@@ -144,7 +157,7 @@ class usercontroller extends Controller
         $users = User::find($id);
         $users->name = $input['uname'];
         $users->email = $input['email'];
-        $users->gender = $input['gender'];
+        $users->gender = $input['gender']; 
         $users->contactno = $input['contactno'];
         $users->save();
         return redirect('list');
@@ -152,6 +165,6 @@ class usercontroller extends Controller
     public function deleteData($id){
         $auth = Auth::user();
         $delete = User::where('id', $id)->update(['deleted_by' => $auth->id, 'deleted_at' => date('Y-m-d H:i:s')]);
-        return redirect('list');
+        return redirect('login');
     }
 }
