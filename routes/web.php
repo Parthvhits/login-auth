@@ -22,10 +22,10 @@ Route::post('login', [usercontroller::class, 'index']);
 Route::get('/login', function () {
     return view('login');
 });
-Route::post('authuser', [usercontroller::class, 'list']);
-Route::get('/authuser', function () {
-    return view('list');
-});
+Route::post('authuser', [usercontroller::class, 'login']);
+// Route::get('/authuser', function () {
+//     return view('list');
+// });
 Route::get('/logout', [usercontroller::class, 'logout']);
 Route::get('/checkemail', [usercontroller::class, 'checkemail']);
 Route::post('/checkemail', [usercontroller::class, 'checkemail']);
@@ -35,6 +35,6 @@ Route::get('/update/{id}', [usercontroller::class, 'updateDetail']);
 Route::resource('updatedData', usercontroller::class);
 Route::get('list', [usercontroller::class, 'list']);
 Route::get('/delete/{id}', [usercontroller::class, 'deleteData']);
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -41,21 +41,41 @@ class usercontroller extends Controller
         return redirect('login');
     }
     public function login(Request $request){
-        $this->validate($request, [
+
+        // dd($request->all());
+        $request->validate([
             'email' => 'required|email',
-            'pwd' => 'required',
+            'password' => 'required',
         ],
         [ 
-            'pwd.required' => 'Please enter a Password',
+            'password.required' => 'Please enter a Password',
             'email.required' => 'Please enter an Email'
         ]
         );
-        $input = $request->all();
-        if (auth()->attempt(array('email' => $input['email'], 'password' => $input['pwd']))) {
-            return view('list');
-        }else {
-            return redirect()->back();
+   
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            return redirect('list');
         }
+        else {
+            return redirect()->back();   
+        }
+
+        // $this->validate($request, [
+        //     'email' => 'required|email',
+        //     'pwd' => 'required',
+        // ],
+        // [ 
+        //     'pwd.required' => 'Please enter a Password',
+        //     'email.required' => 'Please enter an Email'
+        // ]
+        // );
+        // $input = $request->all();
+        // if (auth()->attempt(array('email' => $input['email'], 'password' => $input['pwd']))) {
+        //     return view('list');
+        // }else {
+        //     return redirect()->back();
+        // }
     }
     public function logout(Request $request){
         Auth::logout();

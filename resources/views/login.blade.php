@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" name="pwd" class="@error('pwd') is-invalid @enderror">
+      <input type="password" class="form-control" id="password" name="password" class="@error('pwd') is-invalid @enderror">
       @error('pwd')
           <div class="alert alert-danger">{{ 'Please enter a Password' }}</div>
       @enderror
@@ -53,7 +53,7 @@
     required: true,
     email: true
     },
-    pwd: {
+    password: {
     required: true
     },
     },
@@ -61,7 +61,7 @@
         email: {
           required: "Please enter an Email"
         },
-        pwd: {
+        password: {
           required: "Please enter a Password"
         }
     }
