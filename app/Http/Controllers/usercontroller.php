@@ -14,9 +14,9 @@ class usercontroller extends Controller
     public function index(Request $request){
         $validated = $request->validate([
             'uname' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'password' => 'required|min:8',
-            'contactno' => 'required|integer|unique:users|min:10',
+            'contactno' => 'required|integer|min:10',
             'gender'=> 'required|in:male,female'
         ],
         [ 
@@ -30,14 +30,29 @@ class usercontroller extends Controller
         ]
         );
         $input = $request->all();
-        $users = new User;
-        
-        $users->name = $input['uname'];
-        $users->email = $input['email'];
-        $users->password = Hash::make($input['password'] );
-        $users->gender = $input['gender'];
-        $users->contactno = $input['contactno'];
-        $users->save();
+        $emailadd = $input['email'];
+        $users = User::where('email', '=', $emailadd)->first();
+        if ($users != null) {
+            $email = $input['email'];
+            $query = User::where('email',$email)->first();
+            if($query){
+                $updateArray = array(
+                    'deleted_at' =>null,
+                    'deleted_by' =>null,
+                );
+                $update = User::where('email',$email)->update($updateArray);
+            }
+           
+        } else {
+            $users = new User;
+            $users->name = $input['uname'];
+            $users->email = $input['email'];
+            $users->password = Hash::make($input['password'] );
+            $users->gender = $input['gender'];
+            $users->contactno = $input['contactno'];
+            $users->save();
+            
+        }
         return redirect('login');
     }
     public function login(Request $request){
