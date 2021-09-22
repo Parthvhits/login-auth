@@ -30,20 +30,20 @@ class usercontroller extends Controller
         ]
         );
         $input = $request->all();
-        $emailadd = $input['email'];
-        $users = User::where('email', '=', $emailadd)->first();
-        if ($users != null) {
-            $email = $input['email'];
-            $query = User::where('email',$email)->first();
-            if($query){
-                $updateArray = array(
-                    'deleted_at' =>null,
-                    'deleted_by' =>null,
-                );
-                $update = User::where('email',$email)->update($updateArray);
-            }
+        // $emailadd = $input['email'];
+        // $users = User::where('email', '=', $emailadd)->first();
+        // if ($users != null) {
+        //     $email = $input['email'];
+        //     $query = User::where('email',$email)->first();
+        //     if($query){
+        //         $updateArray = array(
+        //             'deleted_at' =>null,
+        //             'deleted_by' =>null,
+        //         );
+        //         $update = User::where('email',$email)->update($updateArray);
+        //     }
            
-        } else {
+        // } else {
             $users = new User;
             $users->name = $input['uname'];
             $users->email = $input['email'];
@@ -52,7 +52,7 @@ class usercontroller extends Controller
             $users->contactno = $input['contactno'];
             $users->save();
             
-        }
+        //}
         return redirect('login');
     }
     public function login(Request $request){

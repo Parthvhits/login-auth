@@ -81,7 +81,7 @@
 <footer>
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#email-add123').blur(function(){
+    $('#email-add').blur(function(){
           var email = $('#email-add').val();
           var _token = $('input[name="_token"]').val();
           $.ajax({
@@ -104,7 +104,7 @@
               
           });
     });
-    $('#contactno123').blur(function(){
+    $('#contactno').blur(function(){
           var cno = $('#contactno').val();
           var _token = $('input[name="_token"]').val();
           $.ajax({
